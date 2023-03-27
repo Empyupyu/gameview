@@ -29,7 +29,7 @@ public class SampleWebView : MonoBehaviour
 {
     public string Url;
     public Text status;
-    WebViewObject webViewObject;
+    private WebViewObject webViewObject;
 
     IEnumerator Start()
     {
@@ -153,7 +153,7 @@ public class SampleWebView : MonoBehaviour
 
         //webViewObject.SetScrollbarsVisibility(true);
 
-        webViewObject.SetMargins(5, 100, 5, Screen.height / 4);
+        webViewObject.SetMargins(0, 0, 0, 0/*Screen.height / 4*/);
         webViewObject.SetTextZoom(100);  // android only. cf. https://stackoverflow.com/questions/21647641/android-webview-set-font-size-system-default/47017410#47017410
         webViewObject.SetVisibility(true);
 
@@ -204,23 +204,33 @@ public class SampleWebView : MonoBehaviour
 
     void OnGUI()
     {
-        var x = 10;
+        //var x = 10;
 
-        GUI.enabled = webViewObject.CanGoBack();
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "<")) {
+        //GUI.enabled = webViewObject.CanGoBack();
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "<"))
+        //{
         //    webViewObject.GoBack();
         //}
-        GUI.enabled = true;
+        //GUI.enabled = true;
         //x += 90;
 
         //GUI.enabled = webViewObject.CanGoForward();
-        //if (GUI.Button(new Rect(x, 10, 80, 80), ">")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), ">"))
+        //{
         //    webViewObject.GoForward();
         //}
         //GUI.enabled = true;
         //x += 90;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "r")) {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                webViewObject.GoBack();
+            }
+        }
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "r"))
+        //{
         //    webViewObject.Reload();
         //}
         //x += 90;
@@ -228,32 +238,40 @@ public class SampleWebView : MonoBehaviour
         //GUI.TextField(new Rect(x, 10, 180, 80), "" + webViewObject.Progress());
         //x += 190;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "*")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "*"))
+        //{
         //    var g = GameObject.Find("WebViewObject");
-        //    if (g != null) {
+        //    if (g != null)
+        //    {
         //        Destroy(g);
-        //    } else {
+        //    }
+        //    else
+        //    {
         //        StartCoroutine(Start());
         //    }
         //}
         //x += 90;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "c")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "c"))
+        //{
         //    webViewObject.GetCookies(Url);
         //}
         //x += 90;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "x")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "x"))
+        //{
         //    webViewObject.ClearCookies();
         //}
         //x += 90;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "D")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "D"))
+        //{
         //    webViewObject.SetInteractionEnabled(false);
         //}
         //x += 90;
 
-        //if (GUI.Button(new Rect(x, 10, 80, 80), "E")) {
+        //if (GUI.Button(new Rect(x, 10, 80, 80), "E"))
+        //{
         //    webViewObject.SetInteractionEnabled(true);
         //}
         //x += 90;

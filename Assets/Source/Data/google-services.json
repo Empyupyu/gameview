@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "952430945961",
+    "project_id": "gameviewquiz",
+    "storage_bucket": "gameviewquiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952430945961:android:7d1a58388f927b0c29ebb8",
+        "android_client_info": {
+          "package_name": "com.Empyupyu.GameviewQuiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952430945961-64cblub7gki3n6o5imv7m6k39dtsni6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClxV-orU--tLhJOtNGF0xjlkCMloHWIbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952430945961-64cblub7gki3n6o5imv7m6k39dtsni6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
