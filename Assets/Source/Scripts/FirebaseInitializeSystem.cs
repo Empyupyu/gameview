@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Firebase;
 using Firebase.Extensions;
 using Firebase.RemoteConfig;
+using Supyrb;
 using UnityEngine;
 
 public class FirebaseInitializeSystem : MonoBehaviour
@@ -10,6 +11,7 @@ public class FirebaseInitializeSystem : MonoBehaviour
     [SerializeField] private SampleWebView webView;
     [SerializeField] private GameObject noInternetScreen;
 
+    private GameObject currentWebView;
     private DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
     private string url;
 
@@ -18,6 +20,8 @@ public class FirebaseInitializeSystem : MonoBehaviour
     private void Start()
     {
         url = SaveSystem.Instance().Load(lastUrlPathSaveName);
+
+        ActivateWebview();
 
         if (url == "")
         {
@@ -31,20 +35,33 @@ public class FirebaseInitializeSystem : MonoBehaviour
         {
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
-                noInternetScreen.SetActive(true);
+                ActivateNoInternetScreen();
+                DestroyWebView();
                 Debug.Log("Error. Check internet connection!");
             }
             else
             {
-                ActivateWebview();
+                //ActivateWebview();
             }
         }   
+    }
+
+    private void ActivateNoInternetScreen()
+    {
+       
+        noInternetScreen.SetActive(true);
+    }
+
+    private void DestroyWebView()
+    {
+        Destroy(currentWebView.gameObject);
     }
 
     private void ActivateWebview()
     {
         var webviewWindow = Instantiate(webView);
 
+        currentWebView = webviewWindow.gameObject;
         webviewWindow.Url = url;
     }
 
@@ -75,6 +92,8 @@ public class FirebaseInitializeSystem : MonoBehaviour
         if (SystemInfo.deviceModel.ToLower().Contains("google") || SystemInfo.deviceName.ToLower().Contains("google"))
         {
             Debug.Log("Open fake game");
+            DestroyWebView();
+            Signals.Get<LoadingGameSignal>().Dispatch();
             return;
         }
 
@@ -85,9 +104,19 @@ public class FirebaseInitializeSystem : MonoBehaviour
                 FirebaseRemoteConfig.DefaultInstance.ActivateAsync()
                 .ContinueWithOnMainThread(task => {
                     Debug.Log(String.Format("Remote data loaded and ready (last fetch time {0}).", info.FetchTime));
-                    url = FirebaseRemoteConfig.DefaultInstance.GetValue("version1").StringValue;
-                    SaveSystem.Instance().Save(lastUrlPathSaveName, url);
-                    ActivateWebview();
+                    url = FirebaseRemoteConfig.DefaultInstance.GetValue("url").StringValue;
+
+                    if(url == "")
+                    {
+                        Debug.Log("Open fake game");
+                        DestroyWebView();
+                        Signals.Get<LoadingGameSignal>().Dispatch();
+                    }
+                    else
+                    {
+                        SaveSystem.Instance().Save(lastUrlPathSaveName, url);
+                        //ActivateWebview();
+                    }
                 });
                 break;
             case LastFetchStatus.Failure:
@@ -95,11 +124,11 @@ public class FirebaseInitializeSystem : MonoBehaviour
                 {
                     case FetchFailureReason.Error:
                         Debug.Log("Fetch failed for unknown reason");
-                        Debug.Log("Open fake game");
+                        ActivateNoInternetScreen();
                         break;
                     case FetchFailureReason.Throttled:
                         Debug.Log("Fetch throttled until " + info.ThrottledEndTime);
-                        Debug.Log("Open fake game");
+                        ActivateNoInternetScreen();
                         break;
                 }
                 break;
