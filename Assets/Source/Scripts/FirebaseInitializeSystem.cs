@@ -40,7 +40,6 @@ public class FirebaseInitializeSystem : MonoBehaviour
             }
         }   
     }
-    
 
     private void ActivateWebview()
     {
