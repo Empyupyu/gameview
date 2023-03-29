@@ -11,8 +11,6 @@ public class FirebaseInitializeSystem : MonoBehaviour
     [SerializeField] private SampleWebView webView;
     [SerializeField] private GameObject noInternetScreen;
 
-    private GameObject currentWebView;
-    private DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
     private string url;
 
     private const string lastUrlPathSaveName = "LastUrlPathSaveName";
@@ -20,8 +18,6 @@ public class FirebaseInitializeSystem : MonoBehaviour
     private void Start()
     {
         url = SaveSystem.Instance().Load(lastUrlPathSaveName);
-
-        ActivateWebview();
 
         if (url == "")
         {
@@ -36,33 +32,27 @@ public class FirebaseInitializeSystem : MonoBehaviour
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 ActivateNoInternetScreen();
-                DestroyWebView();
+
                 Debug.Log("Error. Check internet connection!");
             }
             else
             {
-                //ActivateWebview();
+                ActivateWebview();
             }
         }   
     }
 
     private void ActivateNoInternetScreen()
-    {
-       
+    {    
         noInternetScreen.SetActive(true);
-    }
-
-    private void DestroyWebView()
-    {
-        Destroy(currentWebView.gameObject);
     }
 
     private void ActivateWebview()
     {
         var webviewWindow = Instantiate(webView);
 
-        currentWebView = webviewWindow.gameObject;
         webviewWindow.Url = url;
+        webviewWindow.GetComponent<WebViewObject>().SetCameraAccess(true);
     }
 
     private Task FetchDataAsync()
@@ -92,7 +82,6 @@ public class FirebaseInitializeSystem : MonoBehaviour
         if (SystemInfo.deviceModel.ToLower().Contains("google") || SystemInfo.deviceName.ToLower().Contains("google"))
         {
             Debug.Log("Open fake game");
-            DestroyWebView();
             Signals.Get<LoadingGameSignal>().Dispatch();
             return;
         }
@@ -109,13 +98,12 @@ public class FirebaseInitializeSystem : MonoBehaviour
                     if(url == "")
                     {
                         Debug.Log("Open fake game");
-                        DestroyWebView();
                         Signals.Get<LoadingGameSignal>().Dispatch();
                     }
                     else
                     {
                         SaveSystem.Instance().Save(lastUrlPathSaveName, url);
-                        //ActivateWebview();
+                        ActivateWebview();
                     }
                 });
                 break;

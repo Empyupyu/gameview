@@ -14,5 +14,6 @@ public class LoadingGameSystem : MonoBehaviour
     private void Loading()
     {
         Instantiate(gamePrefab, canvas.transform);
+        gamePrefab.GetComponent<WebViewObject>().SetCameraAccess(true);
     }
 }

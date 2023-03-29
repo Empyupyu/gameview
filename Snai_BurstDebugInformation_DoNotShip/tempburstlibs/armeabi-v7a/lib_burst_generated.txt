@@ -137,16 +137,16 @@ Library: lib_burst_generated
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.Animation.Runtime.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.TextMeshPro.dll
+--root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.Timeline.dll
+--root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Supyrb.Signals.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.PixelPerfect.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Assembly-CSharp-firstpass.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.Common.Runtime.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.IK.Runtime.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
---root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
---root-assembly=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\Supyrb.Signals.dll
 --assembly-folder=D:\Projects\Gameviewtest\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
